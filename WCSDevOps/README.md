@@ -2,7 +2,7 @@ WCSDevOps is used for doing preparation before deploying and running CI/CD pipel
 
 Vault is used to provide PKI service, and encrypt data of Consul. Consul is used to keep the information of Commerce environment, or you could keep environment parameters with env key-values in value.yaml.
 
-Jenkins is a deploy controller, with all the CI/CD pipeline in it, including:
+Deploycontroller is a deploy controller, with all the CI/CD pipeline in it, including:
 - AddCerts
 - BuildDockerImage
 - BundleCert
@@ -15,17 +15,35 @@ Jenkins is a deploy controller, with all the CI/CD pipeline in it, including:
 - TriggerBuildIndex
 - TriggerIndexReplica
 
-Jenkins Container support some environment parameters to enable auto-configuration, such as:
+Deploycontroller Container support some environment parameters to enable auto-configuration, such as:
 
-- Incluster ( true & false ) : Jenkins will get the vault_token from current environment. This feature only support the Vault_token created by this helm package.
-- vault_url: define the vault_url of your cluster. default value: "http://vault-consul.default.svc:8200/v1"
-- jenkins_server: this jenkins container's url in your cluster. In general, we will use Kubernetes service for connection. default_value: "http://jenkins.default.svc:8080"
-- cloud_url: If this jenkins is out of your WCS runtime based Kubernetes, you will configure this so that the jenkins cloud plugin could connect to the Kubernetes cluster.
-- bundleRepo: 
-- dockerRepoHost: The docker repository you just use now.
-- dockerRepoPwd: The docker repository password to login
-- dockerRepoUser: The docker repository username to login
-- helmChartsRepo: The chart repository of your environment.
+Parameter  |  Usage
+------------- | -------------
+VaultUrl |  Specify Vault URL ( e.g http://9.112.245.194:30552/v1 ). If InCluster equal true, this value is not mandatory
+VaultToken  | Specify Vault Root Token for rest access . If InCluster equal true, this value is not mandatory
+BundleRepo | Specify customize package repository, Nexus is the default bundle repository ( e.g  http://9.110.182.156:8081/nexus/content/repositories/releases/commerce )
+DockerRepo | Specify Docker Image repository (e.g DockerRepoHostname:RepoPort )
+KubernetesUrl | Specify Kubernetes url for remote call from Jenkins. If InCluster equal true, this value is not mandatory
+DockerRepoUser   | Specify User Name of Docker Image Repository for logon when download Docker Image
+DockerRepoPwd  | Specify User Password of Docker Image Repository for logon when download Docker Image
+HelmChartsRepo  | Specify Helm Charts Repository for update Helm Charts | handle helm pre and post install hook / as InitContainer to controller startup sequence (e.g http://9.112.245.194:8879/charts)
+InCluster | true or false as default.  Specify if this deploy controler be deployed inside of out side of Kubernetes cluster, if InCluster equal true, DeployController will auto defect Vault token and use default Vault and Jenkins Service
+
+### Start DeployController Without Configurtion ###
+```
+docker run -d -p 8080:8080 -p 50000:50000 deploycontroller:latest
+```
+
+by this way, deploycontroller will be startup without any configuration. When it startup, you can logon it and edit
+
+Manage Jenkins --> Configure System --> Environment variables
+
+to input those parameter by manually then save the change
+
+
+ <img src="https://github.com/IBM/wc-devops-utilities/raw/master/doc/images/DeployController-GlobalConfig1.png" width = "700" height = "450" alt="Overview" align=center /><br>
+
+ <img src="https://github.com/IBM/wc-devops-utilities/raw/master/doc/images/DeployController-GlobalConfig2.png" width = "700" height = "450" alt="Overview" align=center /><br>
 
 All the environment parameters have default value, it is just for feature testing. In most case, you only have to change one or two of these parameters based your cluster information.
 
