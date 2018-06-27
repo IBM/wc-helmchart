@@ -43,7 +43,6 @@ sleep 1s
 curl -X POST -H $header -H "Content-Type:application/json" -d '{"type":"generic","description":"description","config":{"max_lease_ttl":"876000"}}' http://$kube_minion_ip:$vault_port/v1/sys/mounts/demo
 
 
-#pop
 echo "push dbName to vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbNameAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbName
 curl -X POST -H "$header" -d "{\"value\":\"$dbNameLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbName
@@ -76,23 +75,23 @@ sleep 1s
 echo "push domainName into vault" internalDomainName
 curl -X POST -H "$header" -d "{\"value\":\"$internalDomainName\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/domainName
 
-#post dbaUser into vault 
+#post dba user into vault 
 echo "push dba user into vault" 
 curl -X POST -H "$header" -d "{\"value\":\"$dbaUserAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbaUser
 curl -X POST -H "$header" -d "{\"value\":\"$dbaUserLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbaUser
 
-#post dbaPassword into vault 
+#post dba password into vault 
 echo "push dba password into vault" 
 curl -X POST -H "$header" -d "{\"value\":\"$dbaPasswordAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbaPassword
 curl -X POST -H "$header" -d "{\"value\":\"$dbaPasswordLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbaPassword
 
 #post db encrypt password into vault 
-echo "push dba password into vault" 
+echo "push db encrypt password into vault" 
 curl -X POST -H "$header" -d "{\"value\":\"$dbPassEncryptAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbPassEncrypt
 curl -X POST -H "$header" -d "{\"value\":\"$dbPassEncryptLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbPassEncrypt
 
 #post dba encrypt password into vault 
-echo "push dba password into vault" 
+echo "push dba encrypt password into vault" 
 curl -X POST -H "$header" -d "{\"value\":\"$dbaPassEncryptAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbaPassEncrypt
 curl -X POST -H "$header" -d "{\"value\":\"$dbaPassEncryptLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbaPassEncrypt
 
