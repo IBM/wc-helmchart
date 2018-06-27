@@ -1,4 +1,4 @@
-{{- if eq .Values.Nexus.Enable "true" }}
+{{- if .Values.Nexus.Enable }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
