@@ -46,5 +46,3 @@ to input those parameter by manually then save the change
  <img src="https://github.com/IBM/wc-devops-utilities/raw/master/doc/images/DeployController-GlobalConfig2.png" width = "700" height = "450" alt="Overview" align=center /><br>
 
 All the environment parameters have default value, it is just for feature testing. In most case, you only have to change one or two of these parameters based your cluster information.
-
-nexus server is used to:.....
