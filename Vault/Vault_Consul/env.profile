@@ -9,5 +9,13 @@ dbPasswordLive="wcs1"
 dbPortAuth=50000
 dbPortLive=50001
 dbType=db2
+dbaUserAuth=db2inst1
+dbaUserLive=db2inst1
+dbaPasswordAuth=diet4coke@
+dbaPasswordAuth=diet4coke@
+dbPassEncryptAuth=9hcLVoSxPAm6NnqhwqlVIgxBy4ZUxsGkWrhRI2+N0pM=
+dbPassEncryptLive=9hcLVoSxPAm6NnqhwqlVIgxBy4ZUxsGkWrhRI2+N0pM=
+dbaPassEncryptAuth=LMj7Ix83LnM78G/MTjiewDZKxN3Qo4V7ozuraNgKxIg=
+dbaPassEncryptAuth=LMj7Ix83LnM78G/MTjiewDZKxN3Qo4V7ozuraNgKxIg=
 internalDomainName=default.svc.cluster.local
 kube_minion_ip="9.111.212.231"
