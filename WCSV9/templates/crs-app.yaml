@@ -65,8 +65,8 @@ spec:
         - name: "VAULT_CA"
           value: {{ .Values.Common.VaultCA.Enable | quote }}
 {{- if and .Values.Common.SessionAffinity.Enable  .Values.Common.SessionAffinity.LoadBalanceAddress}}
-         - name: "TX_PORT"
-           value: "443"
+        - name: "TX_PORT"
+          value: "443"
 {{- end }}
         - name: "SSLPort"
           value: "443"
