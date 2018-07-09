@@ -31,7 +31,7 @@ spec:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
       containers:
-      - name: search-app-master
+      - name: search-app-repeater
         image: "{{ .Values.Common.ImageRepo }}{{.Values.SearchappRepeater.Image}}:{{ .Values.SearchappRepeater.Tag }}"
         resources:
           requests:
