@@ -65,6 +65,7 @@ Tsapp:
   Merchantkey: eZrWIdOyaDv5FCOTK32Uni288jgIHDv/P9wxhzKmHdiGZ+n8WJ+Ah56uPbfZ9yJWtjQlGczlmr6OgvArFHCgZQ==
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-ts-app
 SearchappMaster:
   Name: search-app-master
   Replica: 1
@@ -72,6 +73,7 @@ SearchappMaster:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-search-app
 SearchappRepeater:
   Name: search-app-repeater
   Replica: 1
@@ -79,6 +81,7 @@ SearchappRepeater:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-search-app
 SearchappSlave:
   Name: search-app-slave
   Replica: 1
@@ -86,6 +89,7 @@ SearchappSlave:
   Tag: 9.0.0  
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-search-app
 Tsweb:
   Name: ts-web
   Replica: 1
@@ -93,6 +97,7 @@ Tsweb:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-ts-web
 Crsapp:
   Name: crs-app
   Image: crs-app
@@ -100,6 +105,7 @@ Crsapp:
   Replica: 1
   EnvParameters: {}
   NodeSelector: {}
+  FileBeatConfigMap: filebeat-config-crs-app
 #Just keep this for support 9.0.0.0 and 9.0.0.1
 InitC:
   Image: init-wcs
@@ -107,3 +113,7 @@ InitC:
 SupportC:
   Image: supportcontainer
   Tag: 1.9.6
+FileBeat:
+  Enable: true
+  Image: filebeat
+  Tag: 6.3.0

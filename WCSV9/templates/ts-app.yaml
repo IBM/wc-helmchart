@@ -14,11 +14,16 @@ spec:
       volumes:
         - name: logs-sharing
           emptyDir: {}
-      {{ if .Values.Common.BindingConfigMap }}
+      {{- if .Values.Common.BindingConfigMap }}
         - name: config-volume
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
-      {{ end }}
+      {{- end }}
+      {{- if .Values.FileBeat.Enable }}
+        - name: filebeat-config-ts-app
+          configMap:
+            name: {{ .Values.Tsapp.FileBeatConfigMap }}
+      {{- end }}
       containers:
       - name: ts-app
         image: "{{ .Values.Common.ImageRepo }}{{ .Values.Tsapp.Image }}:{{ .Values.Tsapp.Tag }}"
@@ -63,7 +68,7 @@ spec:
           value: {{ .Values.Common.SPIUserPWDAES | quote}}
         - name: "STOREWEB_HOST"
           value: "store.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}{{ .Values.Common.EnvironmentType }}.{{ .Values.Common.ExternalDomian }}"
-        {{ if (or (eq .Values.Common.ConfigureMode "Vault") .Values.Common.VaultCA.Enable) }}
+        {{- if (or (eq .Values.Common.ConfigureMode "Vault") .Values.Common.VaultCA.Enable) }}
         - name: "VAULT_URL"
           value: {{ .Values.Common.VaultURL | quote }}
         - name: "VAULT_TOKEN"
@@ -103,8 +108,17 @@ spec:
 {{- if .Values.Tsapp.NodeSelector }}
         nodeSelector:
 {{ toYaml .Values.Tsapp.NodeSelector | indent 8 }}
-{{- end }} 
-
+{{- end }}
+{{- if .Values.FileBeat.Enable }}
+      - name: filebeat
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
+        args: ['-c', '/etc/filebeat/filebeat.yml']
+        volumeMounts:
+        - name: logs-sharing
+          mountPath: /log
+        - name: filebeat-config-ts-app
+          mountPath: /etc/filebeat
+{{- end }}
 ---
 
 apiVersion: v1

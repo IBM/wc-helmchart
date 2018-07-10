@@ -23,7 +23,12 @@ spec:
       {{- if .Values.Common.BindingConfigMap }}
         - name: config-volume
           configMap:
-            name: {{ .Values.Common.BindingConfigMap }} 
+            name: {{ .Values.Common.BindingConfigMap }}
+      {{- end }}
+      {{- if .Values.FileBeat.Enable }}
+        - name: filebeat-config-search-app-slave
+          configMap:
+            name: {{.Values.SearchappSlave.FileBeatConfigMap }}
       {{- end }}
       containers:
       - name: search-app-slave
@@ -75,18 +80,18 @@ spec:
           value: {{ .Values.Common.SPIUserName | quote }}
         - name: "SPIUSER_PWD"
           value: {{ .Values.Common.SPIUserPWDAES | quote }}
-        {{ if (or (eq .Values.Common.ConfigureMode "Vault") .Values.Common.VaultCA.Enable) }}
+        {{- if (or (eq .Values.Common.ConfigureMode "Vault") .Values.Common.VaultCA.Enable) }}
         - name: "VAULT_URL"
           value: {{ .Values.Common.VaultURL | quote }}
         - name: "VAULT_TOKEN"
           value: {{.Values.Common.VaultToken | quote }}
-        {{ end }}
+        {{- end }}
 {{- if .Values.SearchappSlave.EnvParameters }}
      {{- range $key, $value := .Values.SearchappSlave.EnvParameters }}
-        - name: {{ $key | quote}}
+        - name: {{ $key | quote }}
           value: {{ $value | quote }}
-     {{- end }} 
-{{- end }}        
+     {{- end }}
+{{- end }}
         ports:
         - containerPort: 3737
           name: port3737
@@ -115,10 +120,19 @@ spec:
             mountPath: /SETUP/ext-config   
       {{- end }} 
 {{- if .Values.SearchappSlave.NodeSelector }}
-      nodeSelector:
+        nodeSelector:
 {{ toYaml .Values.SearchappSlave.NodeSelector | indent 8 }}
-{{- end }}  
-          
+{{- end }}
+{{- if .Values.FileBeat.Enable }}
+      - name: filebeat
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
+        args: ['-c', '/etc/filebeat/filebeat.yml']
+        volumeMounts:
+        - name: logs-sharing
+          mountPath: /log
+        - name: filebeat-config-search-app-slave
+          mountPath: /etc/filebeat
+{{- end }}
 ---
 
 apiVersion: v1

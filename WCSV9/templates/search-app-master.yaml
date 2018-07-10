@@ -30,6 +30,11 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
+      {{- if .Values.FileBeat.Enable }}
+        - name: filebeat-config-search-app-master
+          configMap:
+            name: {{ .Values.SearchappMaster.FileBeatConfigMap }}
+      {{- end }}
       containers:
       - name: search-app-master
         image: "{{ .Values.Common.ImageRepo }}{{.Values.SearchappMaster.Image}}:{{ .Values.SearchappMaster.Tag }}"
@@ -110,7 +115,7 @@ spec:
           timeoutSeconds: 300
         volumeMounts:
           - name: logs-sharing
-            mountPath: /opt/WebSphere/AppServer/profiles/default/logs/container
+            mountPath: /opt/WebSphere/Liberty/usr/servers/default/logs/container
       {{- if .Values.Common.PersistenVolumeClaim.AutoCreate }}
           - name:  {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}-search-master-index-volume
             mountPath: /search
@@ -120,10 +125,19 @@ spec:
             mountPath: /SETUP/ext-config   
       {{- end }}
 {{- if .Values.SearchappMaster.NodeSelector }}
-      nodeSelector:
+        nodeSelector:
 {{ toYaml .Values.SearchappMaster.NodeSelector | indent 8 }}
-{{- end }} 
-
+{{- end }}
+{{- if .Values.FileBeat.Enable }}
+      - name: filebeat
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
+        args: ['-c', '/etc/filebeat/filebeat.yml']
+        volumeMounts:
+        - name: logs-sharing
+          mountPath: /log
+        - name: filebeat-config-search-app-master
+          mountPath: /etc/filebeat
+{{- end }}
 ---
 
 apiVersion: v1

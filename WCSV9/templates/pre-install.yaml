@@ -3,7 +3,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: wcs-pre-install-{{ .Values.Common.Tenant | lower}}{{ .Values.Common.EnvironmentName | lower}}{{ .Values.Common.EnvironmentType }}-{{ randAlphaNum 10 | lower }}
-  namespace: {{ .Values.Common.NameSpace }}
   annotations:
     "helm.sh/hook": pre-install
     "helm.sh/hook-delete-policy": "hook-succeeded"
