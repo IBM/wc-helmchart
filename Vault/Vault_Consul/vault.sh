@@ -24,13 +24,13 @@ else
 	vault_token=$(kubectl logs $vault_pod -c vault |grep "Root Token:" | awk  '{print $3}' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})*)?m//g")
 fi
 
-kube_version=`kubectl version | grep Client | sed -E 's/.*(GitVersion:"v([0-9]\.[0-9]).*)/\2/g'`
+kube_version=`kubectl version | grep Client | sed -E 's/.*(Minor:"([0-9][0-9]?).*)/\2/g'`
 
-if [[ ${kube_version} > 1.7 ]];then
-   echo "kube client $kube_version higher then 1.7"
+if [[ ${kube_version} -gt 7 ]];then
+   echo "kube client version higher then 1.7"
    vault_port=$(kubectl get svc | grep vault-consul | awk '{print substr($5,6,5)}')
 else
-   echo "kube client $kube_version lower or equal then 1.7"
+   echo "kube client version lower or equal then 1.7"
    vault_port=$(kubectl get svc | grep vault-consul | awk '{print substr($4,6,5)}')
 fi
 
@@ -42,7 +42,6 @@ echo "Creating mount point for demo"
 sleep 1s
 curl -X POST -H $header -H "Content-Type:application/json" -d '{"type":"generic","description":"description","config":{"max_lease_ttl":"876000"}}' http://$kube_minion_ip:$vault_port/v1/sys/mounts/demo
 
-
 echo "push dbName to vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbNameAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbName
 curl -X POST -H "$header" -d "{\"value\":\"$dbNameLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbName
@@ -52,7 +51,6 @@ echo "push dbPassword to vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbPasswordAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbPassword
 curl -X POST -H "$header" -d "{\"value\":\"$dbPasswordLive\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbPassword
 sleep 1s
-
 
 echo "push dbUser to vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbUserAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbUser
@@ -69,7 +67,6 @@ echo "push dbHost into vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbHostAuth\"}" http://$kube_minion_ip:$vault_port/v1/demo/qa/auth/dbHost
 curl -X POST -H "$header" -d "{\"value\":\"$dbHostLive\"}"  http://$kube_minion_ip:$vault_port/v1/demo/qa/live/dbHost
 sleep 1s
-
 
 #post domainName into vault and consul
 echo "push domainName into vault" internalDomainName

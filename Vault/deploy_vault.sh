@@ -4,7 +4,7 @@ current_dir=$(cd "$(dirname "$0")"; pwd)
 
 # Deploy Vault and Consul.
 echo "Deploying Vault and Consul"
-kubectl create cm vault --from-file=$current_dir/Vault_Consul/config
+kubectl create cm vault --from-file=$current_dir/Vault_Consul/config.json
 kubectl create -f $current_dir/Vault_Consul/deployment.yaml
 sleep 1s
 

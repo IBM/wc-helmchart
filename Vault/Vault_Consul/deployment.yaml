@@ -28,7 +28,8 @@ spec:
             name: port8200
           volumeMounts:
           - name: config-volume
-            mountPath: /vault
+            mountPath: /vault/config/config.json
+            subPath: config.json
       volumes:
       - name: config-volume
         configMap:
