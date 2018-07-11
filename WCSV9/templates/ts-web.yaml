@@ -24,6 +24,11 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
+      {{- if .Values.FileBeat.Enable }}
+        - name: filebeat-config-ts-web
+          configMap:
+            name: {{ .Values.Tsweb.FileBeatConfigMap }}
+      {{- end }}
       containers:
       - name: ts-web
         image: "{{ .Values.Common.ImageRepo }}{{ .Values.Tsweb.Image }}:{{ .Values.Tsweb.Tag }}"
@@ -95,8 +100,17 @@ spec:
 {{- if .Values.Tsweb.NodeSelector }}
         nodeSelector:
 {{ toYaml .Values.Tsweb.NodeSelector | indent 8 }}
-{{- end }} 
-
+{{- end }}
+{{- if .Values.FileBeat.Enable }} 
+      - name: filebeat
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
+        args: ['-c', '/etc/filebeat/filebeat.yml']
+        volumeMounts:
+        - name: logs-sharing
+          mountPath: /log
+        - name: filebeat-config-ts-web
+          mountPath: /etc/filebeat
+{{- end }}
 ---
 
 apiVersion: v1

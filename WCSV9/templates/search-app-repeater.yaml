@@ -30,6 +30,11 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
+      {{- if .Values.FileBeat.Enable }}
+        - name: filebeat-config-search-app-repeater
+          configMap:
+            name: {{ .Values.SearchappRepeater.FileBeatConfigMap }}
+      {{- end }}
       containers:
       - name: search-app-repeater
         image: "{{ .Values.Common.ImageRepo }}{{.Values.SearchappRepeater.Image}}:{{ .Values.SearchappRepeater.Tag }}"
@@ -82,7 +87,7 @@ spec:
         - name: "VAULT_URL"
           value: {{ .Values.Common.VaultURL | quote }}
         - name: "VAULT_TOKEN"
-          value: {{.Values.Common.VaultToken | quote }}
+          value: {{ .Values.Common.VaultToken | quote }}
         {{- end }}
 {{- if .Values.SearchappRepeater.EnvParameters }}
      {{- range $key, $value := .Values.SearchappRepeater.EnvParameters }}
@@ -112,7 +117,7 @@ spec:
           timeoutSeconds: 300
         volumeMounts:
           - name: logs-sharing
-            mountPath: /opt/WebSphere/AppServer/profiles/default/logs/container
+            mountPath: /opt/WebSphere/Liberty/usr/servers/default/logs/container
       {{- if .Values.Common.PersistenVolumeClaim.AutoCreate }}
           - name:  {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}-search-repeater-index-volume
             mountPath: /search
@@ -122,8 +127,18 @@ spec:
             mountPath: /SETUP/ext-config   
       {{- end }}   
 {{- if .Values.SearchappRepeater.NodeSelector }}
-      nodeSelector:
+        nodeSelector:
 {{ toYaml .Values.SearchappRepeater.NodeSelector | indent 8 }}
+{{- end }}
+{{- if .Values.FileBeat.Enable }}
+      - name: filebeat
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
+        args: ['-c', '/etc/filebeat/filebeat.yml']
+        volumeMounts:
+        - name: logs-sharing
+          mountPath: /log
+        - name: filebeat-config-search-app-repeater
+          mountPath: /etc/filebeat
 {{- end }}
 
 ---
