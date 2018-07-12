@@ -114,6 +114,6 @@ SupportC:
   Image: supportcontainer
   Tag: 1.9.6
 FileBeat:
-  Enable: true
+  Enable: false
   Image: filebeat
   Tag: 6.3.0
