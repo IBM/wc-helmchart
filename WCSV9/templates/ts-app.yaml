@@ -11,6 +11,13 @@ spec:
         component: {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}{{ .Values.Common.EnvironmentType }}{{.Values.Tsapp.Name}}
         group: {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}{{ .Values.Common.EnvironmentType }}
     spec:
+      {{- if .Values.Tsdb.Enable }}
+      initContainers:
+      - name: transaction-dependence-check
+        image: "{{ .Values.Common.ImageRepo }}{{ .Values.SupportC.Image }}:{{ .Values.SupportC.Tag }}"
+        imagePullPolicy: IfNotPresent
+        args: ['depcheck', '-component','transaction','-tenant',{{ .Values.Common.Tenant }},'-env',{{ .Values.Common.EnvironmentName}},'-envtype',{{ .Values.Common.EnvironmentType }},'-namespace',{{ .Values.Common.NameSpace }},'-interval_time','20','-expect_during_time','600','-timeout','5','-spiuser_pwd_encrypte',{{ .Values.Common.SPIUserPWDBase64 }}]
+      {{- end }}
       volumes:
         - name: logs-sharing
           emptyDir: {}
@@ -19,7 +26,7 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
-      {{- if .Values.FileBeat.Enable }}
+      {{- if and .Values.FileBeat.Enable .Values.Tsapp.FileBeatConfigMap }}
         - name: filebeat-config-ts-app
           configMap:
             name: {{ .Values.Tsapp.FileBeatConfigMap }}
@@ -112,12 +119,14 @@ spec:
 {{- if .Values.FileBeat.Enable }}
       - name: filebeat
         image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
-        args: ['-c', '/etc/filebeat/filebeat.yml']
+        args: ["-indexName", "{{ .Values.Common.Tenant }}-{{ .Values.Common.EnvironmentName}}-{{ .Values.Common.EnvironmentType }}", "-targetELK", "{{ .Values.FileBeat.ELKServer }}", "-componentType", "ts-app"]
         volumeMounts:
         - name: logs-sharing
           mountPath: /log
+{{- if .Values.Tsapp.FileBeatConfigMap }}
         - name: filebeat-config-ts-app
           mountPath: /etc/filebeat
+{{- end }}
 {{- end }}
 ---
 

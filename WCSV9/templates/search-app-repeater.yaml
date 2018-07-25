@@ -30,7 +30,7 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
-      {{- if .Values.FileBeat.Enable }}
+      {{- if and .Values.FileBeat.Enable .Values.SearchappRepeater.FileBeatConfigMap }}
         - name: filebeat-config-search-app-repeater
           configMap:
             name: {{ .Values.SearchappRepeater.FileBeatConfigMap }}
@@ -133,12 +133,14 @@ spec:
 {{- if .Values.FileBeat.Enable }}
       - name: filebeat
         image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
-        args: ['-c', '/etc/filebeat/filebeat.yml']
+        args: ["-indexName", "{{ .Values.Common.Tenant }}-{{ .Values.Common.EnvironmentName}}-{{ .Values.Common.EnvironmentType }}", "-targetELK", "{{ .Values.FileBeat.ELKServer }}", "-componentType", "search-app-repeater"]
         volumeMounts:
         - name: logs-sharing
           mountPath: /log
+{{- if .Values.SearchappRepeater.FileBeatConfigMap }}
         - name: filebeat-config-search-app-repeater
           mountPath: /etc/filebeat
+{{- end }}
 {{- end }}
 
 ---

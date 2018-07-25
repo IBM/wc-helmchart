@@ -30,7 +30,7 @@ spec:
           configMap:
             name: {{ .Values.Common.BindingConfigMap }} 
       {{- end }}
-      {{- if .Values.FileBeat.Enable }}
+      {{- if and .Values.FileBeat.Enable .Values.Crsapp.FileBeatConfigMap }}
         - name: filebeat-config-crs-app
           configMap:
             name: {{ .Values.Crsapp.FileBeatConfigMap }}
@@ -120,12 +120,14 @@ spec:
 {{- if .Values.FileBeat.Enable }}
       - name: filebeat
         image: "{{ .Values.Common.ImageRepo }}{{ .Values.FileBeat.Image }}:{{ .Values.FileBeat.Tag }}"
-        args: ['-c', '/etc/filebeat/filebeat.yml']
+        args: ["-indexName", "{{ .Values.Common.Tenant }}-{{ .Values.Common.EnvironmentName}}-{{ .Values.Common.EnvironmentType }}", "-targetELK", "{{ .Values.FileBeat.ELKServer }}","-componentType", "crs-app"]
         volumeMounts:
         - name: logs-sharing
           mountPath: /log
+{{- if .Values.Crsapp.FileBeatConfigMap }}
         - name: filebeat-config-crs-app
           mountPath: /etc/filebeat
+{{- end }}
 {{- end }}
 
 ---

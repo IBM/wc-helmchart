@@ -51,6 +51,7 @@ Common:
        CONTAINER_HOSTNAME: None
   NodeSelector: {}
 Tsdb:
+  Enable: false
   Name: ts-db
   Replica: 1
   Image: ts-db
@@ -65,7 +66,7 @@ Tsapp:
   Merchantkey: eZrWIdOyaDv5FCOTK32Uni288jgIHDv/P9wxhzKmHdiGZ+n8WJ+Ah56uPbfZ9yJWtjQlGczlmr6OgvArFHCgZQ==
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-ts-app
+  FileBeatConfigMap:
 SearchappMaster:
   Name: search-app-master
   Replica: 1
@@ -73,7 +74,7 @@ SearchappMaster:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-search-app
+  FileBeatConfigMap:
 SearchappRepeater:
   Name: search-app-repeater
   Replica: 1
@@ -81,7 +82,7 @@ SearchappRepeater:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-search-app
+  FileBeatConfigMap:
 SearchappSlave:
   Name: search-app-slave
   Replica: 1
@@ -89,7 +90,7 @@ SearchappSlave:
   Tag: 9.0.0  
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-search-app
+  FileBeatConfigMap:
 Tsweb:
   Name: ts-web
   Replica: 1
@@ -97,7 +98,7 @@ Tsweb:
   Tag: 9.0.0
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-ts-web
+  FileBeatConfigMap:
 Crsapp:
   Name: crs-app
   Image: crs-app
@@ -105,7 +106,7 @@ Crsapp:
   Replica: 1
   EnvParameters: {}
   NodeSelector: {}
-  FileBeatConfigMap: filebeat-config-crs-app
+  FileBeatConfigMap:
 #Just keep this for support 9.0.0.0 and 9.0.0.1
 InitC:
   Image: init-wcs
@@ -116,4 +117,5 @@ SupportC:
 FileBeat:
   Enable: false
   Image: filebeat
-  Tag: 6.3.0
+  Tag: 9.0.0.6.5
+  ELKServer: ELKServer.cn.ibm.com
