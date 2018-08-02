@@ -1,3 +1,12 @@
+Before you use this Helm Chart, please edit vaules.yaml
+
+1. Correct the Docker Image URL 
+2. Set appropriate values 
+3. Choose what component you want to deploy. Vault/Consul and Nexus are option, if you want use existed Vault/Consul and Nexus, you can change the "Enable" value to "false"
+4. IF you want to reuse exist Vault/Consul. Please make sure DeployController deployed in same namespace with Vault.
+
+
+
 WCSDevOps is used for doing preparation before deploying and running CI/CD pipeline. WCSDevOps contains three deployments: vault & consul, jenkins and nexus. 
 
 Vault is used to provide PKI service, and encrypt data of Consul. Consul is used to keep the information of Commerce environment, or you could keep environment parameters with env key-values in value.yaml.
