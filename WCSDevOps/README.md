@@ -1,10 +1,11 @@
 Before you use this Helm Chart, please edit vaules.yaml
 
-1. Correct the Docker Image URL 
-2. Set appropriate values 
-3. Choose what component you want to deploy. Vault/Consul and Nexus are option, if you want use existed Vault/Consul and Nexus, you can change the "Enable" value to "false"
-4. IF you want to reuse exist Vault/Consul. Please make sure DeployController deployed in same namespace with Vault.
-
+1. Correct the Docker Image url
+   Vault/Consul and Nexus will try to download docker image from internet as default. Since DeployController, you need to 
+   build by yourself, please provide a Docker Image name with your private docker repository url.
+2. Set appropriate values for DeployController.
+3. Vault/Consul and Nexus are option, if you want use existed Vault/Consul or Nexus, you can change the "Enable" value to "false"
+4. IF you want to reuse exist Vault/Consul. Please make sure DeployController be deployed in same namespace with Vault/Consul and set "InCluster" to "true"
 
 
 WCSDevOps is used for doing preparation before deploying and running CI/CD pipeline. WCSDevOps contains three deployments: vault & consul, jenkins and nexus. 
