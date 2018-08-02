@@ -27,7 +27,7 @@ KubernetesUrl | Specify Kubernetes url for remote call from Jenkins. If InCluste
 DockerRepoUser   | Specify User Name of Docker Image Repository for logon when download Docker Image
 DockerRepoPwd  | Specify User Password of Docker Image Repository for logon when download Docker Image
 HelmChartsRepo  | Specify Helm Charts Repository for update Helm Charts | handle helm pre and post install hook / as InitContainer to controller startup sequence (e.g http://9.112.245.194:8879/charts)
-InCluster | true or false as default.  Specify if this deploy controler be deployed inside of out side of Kubernetes cluster, if InCluster equal true, DeployController will auto defect Vault token and use default Vault and Jenkins Service
+InCluster | true or false.  Specify if this deploy controler be deployed inside of out side of Kubernetes cluster, if InCluster equal true, DeployController will auto defect Vault token and use default Vault and Jenkins Service. Please make sure Vault and DeployController in same namespace.
 
 ### Start DeployController Without Configurtion ###
 ```
