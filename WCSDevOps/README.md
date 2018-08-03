@@ -1,8 +1,8 @@
 Before you use this Helm Chart, please edit vaules.yaml
 
 1. Correct the Docker Image url
-   Vault/Consul and Nexus will try to download docker image from internet as default. Since DeployController, you need to 
-   build by yourself, please provide a Docker Image name with your private docker repository url.
+   Vault/Consul and Nexus will try to download docker image from internet as default. Since DeployController need to 
+   be build by yourself, please provide a Docker Image name with your private docker repository url.
 2. Set appropriate values for DeployController.
 3. Vault/Consul and Nexus are option, if you want use existed Vault/Consul or Nexus, you can change the "Enable" value to "false"
 4. IF you want to reuse exist Vault/Consul. Please make sure DeployController be deployed in same namespace with Vault/Consul and set "InCluster" to "true"
