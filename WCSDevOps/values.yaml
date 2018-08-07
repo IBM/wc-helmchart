@@ -13,7 +13,7 @@ VaultConsul:
       Vault:
       Consul:
 
-Jenkins:
+DeployController:
   Replicas: 1
   Image: deploycontroller
   Tag: latest
@@ -22,11 +22,11 @@ Jenkins:
     VaultUrl:
     VaultToken:
     KubernetesUrl:
-    BundleRepo: http://9.110.182.156:8081/nexus/content/repositories/releases/commerce
-    DockerRepo: bxv8v141.cn.ibm.com
-    DockerRepoPwd: Harbor12345
-    DockerRepoUser: admin
-    HelmChartsRepo: http://9.112.245.194:8879/charts
+    BundleRepo: http://nexus:8081/nexus/content/repositories/releases/commerce
+    DockerRepo:
+    DockerRepoPwd:
+    DockerRepoUser:
+    HelmChartsRepo:
   NodeSelector:
 
 Nexus:

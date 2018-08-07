@@ -62,6 +62,9 @@ echo "push dbHost into vault"
 curl -X POST -H "$header" -d "{\"value\":\"$dbHostAuth\"}" http://$kube_minion_ip:$vault_port/v1/$1/$2/$3/dbHost
 sleep 1s
 
+echo "push dbType into vault"
+curl -X POST -H "$header" -d "{\"value\":\"$dbType\"}" http://$kube_minion_ip:$vault_port/v1/$1/$2/$3/dbType
+sleep 1s
 
 #post domainName into vault and consul
 echo "push domainName into vault" internalDomainName

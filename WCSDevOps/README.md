@@ -12,6 +12,13 @@ DeploySlave / SupportContainer and all other containers in WC-DevOps-Utilities p
 
 Current Docker Image Repository  url will be the value for parameter 'DockerRepo' when you config Values.yml for DeployController.
 
+Here are the image list you need to upload to Docker Repository for DevOps Utilities
+
+deployslave:latest
+supportcontainer:latest
+
+
+
 ## Helm Charts Repository ##
 
 When you trigger job to deploy Commerce V9, DeployController will auto fetch Helm Charts you specified from Helm Charts Repository. Since the Helm Charts reposiroty can be any web server. so we not include in
