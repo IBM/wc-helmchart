@@ -110,7 +110,7 @@ As default, DeployController integrate with Nexus to support build customized Do
 on Nexus. As default, all the custom package should be store in release repository under group commerce.Tenant ( commerce.demo )
 
 
-<img src="https://raw.githubusercontent.com/IBM/wc-devops-utilities/master/doc/images/NexusPackageStructure.png" width = "700" height = "450" alt="Overview" align=center /><br>
+<img src="https://github.com/IBM/wc-devops-utilities/raw/master/doc/images/NexusPackageStructure.png" width = "700" height = "450" alt="Overview" align=center /><br>
 
 For upload custom pacakge to Nexus, please refer below gradle scritps to create "build.gradle" file.
 ```
