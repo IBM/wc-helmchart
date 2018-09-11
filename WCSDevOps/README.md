@@ -12,12 +12,13 @@ DeploySlave / SupportContainer and all other containers in WC-DevOps-Utilities p
 
 Current Docker Image Repository  url will be the value for parameter 'DockerRepo' when you config Values.yml for DeployController.
 
-Here are the image list you need to upload to Docker Repository for DevOps Utilities
+Here are the image list you need to upload to Docker Repository for DevOps Utilities<br>
 
-deployslave:latest
-supportcontainer:latest
-
-
+* deployslave:latest<br>
+* supportcontainer:latest<br>
+* jenkinsci/jnlp-slave:latest<br>
+* optional: filebeat:latest<br>
+* optional: evenagent:latest<br>
 
 ## Helm Charts Repository ##
 
@@ -68,7 +69,7 @@ Before you use this Helm Chart, please edit vaules.yml
 4. IF you want to reuse exist Vault/Consul. Please make sure DeployController be deployed in same namespace with Vault/Consul and set "InCluster" to "true"
 
 
-Deploycontroller Container support some environment parameters to enable auto-configuration, such as:
+Deploycontroller Deployment Configuration:
 
 Parameter  |  Usage
 ------------- | -------------
