@@ -14,11 +14,11 @@ Current Docker Image Repository  url will be the value for parameter 'DockerRepo
 
 Here are the image list you need to upload to Docker Repository for DevOps Utilities<br>
 
-* deployslave:latest<br>
-* supportcontainer:latest<br>
-* jenkinsci/jnlp-slave:latest<br>
-* optional: filebeat:latest<br>
-* optional: evenagent:latest<br>
+* commerce/deployslave:latest<br>
+* commerce/supportcontainer:latest<br>
+* commerce/jnlp-slave:latest  (docker pull jenkinsci/jnlp-slave:latest)<br> 
+* optional: commerce/filebeat:latest<br>
+* optional: commerce/evenagent:latest<br>
 
 ## Helm Charts Repository ##
 
