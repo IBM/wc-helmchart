@@ -118,4 +118,5 @@ FileBeat:
   Enable: false
   Image: filebeat
   Tag: 9.0.0.6.5
+  # Just need input elasticsearch server ip address withou port number. 9200 is the hardcode port for use
   ELKServer: ELKServer.cn.ibm.com
