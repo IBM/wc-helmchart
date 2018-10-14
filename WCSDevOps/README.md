@@ -20,6 +20,8 @@ Here are the image list you need to upload to Docker Repository for DevOps Utili
 * optional: commerce/filebeat:latest<br>
 * optional: commerce/evenagent:latest<br>
 
+Recommand to setup Docker Image Reposiroty with Harbor. See [How to setup Harbor](https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md)
+
 ## Helm Charts Repository ##
 
 When you trigger job to deploy Commerce V9, DeployController will auto fetch Helm Charts you specified from Helm Charts Repository. Since the Helm Charts reposiroty can be any web server. so we not include in
@@ -55,6 +57,11 @@ entries:
 ```
 
 The Helm Server Address http://ServerIPAddress:8879 will be the value for parameter "HelmChartsRepo" when you config values.yml for DeployController
+
+## Artifacts Repository ##
+Artifacts repository used to store customized code package and will be integrate with DeployController which will fetch package from artifacts reposiroty
+
+Nexus is one of option. You can use Nexus Docker Image to setup quickly. See [How To Setup Nexus With Docker](https://hub.docker.com/r/sonatype/nexus/)
 
 # Deploy With Helm Charts #
 
