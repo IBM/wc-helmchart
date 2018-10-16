@@ -3,10 +3,10 @@ Common:
 
 VaultConsul:
   Replicas: 1
-  VaultImage: vault
-  VaultTag: latest
-  ConsulImage: consul
-  ConsulTag: latest
+  VaultImage: docker.io/vault
+  VaultTag: 0.9.5
+  ConsulImage: docker.io/consul
+  ConsulTag: 1.0.6
   Enable: true
   NodeSelector:
   EnvParameters:

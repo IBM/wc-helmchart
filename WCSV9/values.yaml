@@ -26,7 +26,7 @@ Common:
         LoadBalanceAddress:
   VaultURL: http://vault-consul:8200/v1
   ## External Domain use to specify the store-web external domain name which can be recognized by customer's browser. For example. in hostname store.demo4qaauth.ibm.com , ibm.com would be the External Domain name.
-  ExternalDomian: ibm.com
+  ExternalDomian: .ibm.com
   ## CommerceVersion used to specify current OOTB docker image version. By default, it is null
   ## IF you still using 9.0.0.1 and 9.0.0.0, you need to sepcify this version to let template render deployment template with OVERRIDE_PRECONFIG config mode which has be depearted since 9.0.0.2
   CommerceVersion:
