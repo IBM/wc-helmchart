@@ -30,3 +30,7 @@ IF enable session affinity, the ssl-passthrough can not work.
    * Change ‘nginx.ingress.kubernetes.io/secure-backends: “true”‘ to ‘ingress.kubernetes.io/secure-backends: “true”‘
    * Save WCSV9/Template/ingress.yaml
 
+5. When use nginx ingress controll, you may meet 502 issue when you register a new user after clict submit button. The root cause is the proxy-buffering-size is too small ( as default, it is 4k ). Please make below guide below to change proxy-buffer-size value to 128k
+
+https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/configmap.md
+
