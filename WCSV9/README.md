@@ -34,3 +34,12 @@ IF enable session affinity, the ssl-passthrough can not work.
 
 https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/configmap.md
 
+ Here are the reference about how to change the proxy_buffer_size on nginx just for reference
+ 
+ Solution: https://blog.csdn.net/haitun312366/article/details/12647237
+   Tune proxy setting for each server needed:
+   proxy_buffer_size  128k;
+   proxy_buffers   32 32k;
+   proxy_busy_buffers_size 128k;
+   proxy_temp_file_write_size 128k;
+
