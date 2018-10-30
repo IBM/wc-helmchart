@@ -18,7 +18,7 @@ spec:
       {{- if .Values.Common.IngressSecrete.AutoCreate }}
         - name: pre-install-job-createsecret-{{ .Values.Common.Tenant | lower}}{{ .Values.Common.EnvironmentName | lower}}{{ .Values.Common.EnvironmentType }}-{{ randAlphaNum 10 | lower }}
           image: {{ .Values.Common.ImageRepo }}{{ .Values.SupportC.Image }}:{{ .Values.SupportC.Tag }}
-          args: ['createsecret', '-tenant',{{ .Values.Common.Tenant }},'-env',{{ .Values.Common.EnvironmentName}},'-envtype',{{ .Values.Common.EnvironmentType }},'-domain',{{ .Values.Common.ExternalDomian }},'-namespace',{{ .Values.Common.NameSpace }},'-replace',{{ .Values.Common.IngressSecrete.ReplaceExist }}]
+          args: ['createsecret', '-tenant',{{ .Values.Common.Tenant }},'-env',{{ .Values.Common.EnvironmentName}},'-envtype',{{ .Values.Common.EnvironmentType }},'-domain',{{ .Values.Common.ExternalDomian | quote }},'-namespace',{{ .Values.Common.NameSpace }},'-replace',{{ .Values.Common.IngressSecrete.ReplaceExist | quote }}]
       {{- end -}}
       {{- if .Values.Common.PersistenVolumeClaim.AutoCreate }}
         - name: pre-install-job-createpvc-{{ .Values.Common.Tenant | lower}}{{ .Values.Common.EnvironmentName | lower}}{{ .Values.Common.EnvironmentType }}-{{ randAlphaNum 10 | lower }}
