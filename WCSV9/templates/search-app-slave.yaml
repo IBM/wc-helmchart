@@ -100,7 +100,8 @@ spec:
           protocol: TCP
         readinessProbe:
           httpGet:
-            path: /search/admin/resources/health/status?type=container
+            #path: /search/admin/resources/health/status?type=container
+            path: /search/admin/resources/health/ping
             port: 3737
             httpHeaders:
             - name: Authorization
