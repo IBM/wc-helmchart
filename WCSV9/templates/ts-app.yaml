@@ -96,7 +96,7 @@ spec:
           protocol: TCP
         readinessProbe:
           httpGet:
-            path: /webapp/wcs/stores/servlet/swagger/index.jsp
+            path: /wcs/resources/health/ping
             port: 5080
           initialDelaySeconds: 300
           periodSeconds: 5
