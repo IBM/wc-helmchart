@@ -1,0 +1,44 @@
+charts:
+  - archive: file:ibm-websphere-commerce-1.0.0.tgz
+    repository-keys:
+      - mycluster.icp:8500
+  - archive: file:ibm-websphere-commerce-vaultconsul-1.0.0.tgz
+    repository-keys:
+      - mycluster.icp:8500
+images:
+  - image: ts-app:9.0.1
+    references:
+    - repository: ts-app:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/ts-app:v9-20181025-2119
+  - image: crs-app:9.0.1
+    references:
+    - repository: crs-app:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/crs-app:v9-20181024-1734
+  - image: search-app:9.0.1
+    references:
+    - repository: search-app:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/search-app:v9-20181024-1153
+  - image: ts-web:9.0.1
+    references:
+    - repository: ts-web:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/ts-web:v9-20181025-2119
+  - image: ts-utils:9.0.1
+    references:
+    - repository: ts-utils:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/ts-utils:v9-20181025-2119-icp-ent
+  - image: ts-db:9.0.1
+    references:
+    - repository: ts-db:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/ts-db:v9-20181023-1115
+  - image: filebeat:1.0.0
+    references:
+    - repository: filebeat:1.0.0
+      pull-repository: bxv8v141.cn.ibm.com/commerce/filebeat:1.0.0
+  - image: supportcontainer:1.0.0
+    references:
+    - repository: supportcontainer:1.0.0
+      pull-repository: bxv8v141.cn.ibm.com/commerce/supportcontainer:v20181025
+  - image: xc-app:9.0.1
+    references:
+    - repository: xc-app:9.0.1
+      pull-repository: bxv8v141.cn.ibm.com/9.0.1/xc-app:v9-20181023-1108
