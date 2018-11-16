@@ -74,7 +74,7 @@ spec:
         - name: "SPIUSER_PWD"
           value: {{ .Values.Common.SPIUserPWDAES | quote}}
         - name: "STOREWEB_HOST"
-          value: "store.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}{{ .Values.Common.EnvironmentType }}.{{ .Values.Common.ExternalDomian }}"
+          value: "store.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName}}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}"
         {{- if (or (eq .Values.Common.ConfigureMode "Vault") .Values.Common.VaultCA.Enable) }}
         - name: "VAULT_URL"
           value: {{ .Values.Common.VaultURL | quote }}
