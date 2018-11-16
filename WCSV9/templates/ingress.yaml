@@ -19,7 +19,7 @@ spec:
     - search.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}
     {{- end }}
     {{- if eq .Values.Common.EnvironmentType "live" }}
-    - searchrepeater.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}.ibm.com
+    - searchrepeater.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}
     {{- end }}
     - tsapp.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}
     secretName: {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}-certificate
