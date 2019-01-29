@@ -59,6 +59,7 @@ spec:
         backend:
           serviceName: {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}crs-app
           servicePort: 8443
+  {{- if eq .Values.Common.EnvironmentType "auth" }}
   - host: search.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}
     http:
       paths:
@@ -66,6 +67,7 @@ spec:
         backend:
           serviceName: {{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}search-app-master
           servicePort: 3738
+  {{- end }}
   - host: tsapp.{{ .Values.Common.Tenant }}{{ .Values.Common.EnvironmentName }}{{ .Values.Common.EnvironmentType }}{{ .Values.Common.ExternalDomian }}
     http:
       paths:
